@@ -43,13 +43,8 @@ async function onSearch(e) {
     const getImages = images.length;
     const totalHits = img.totalHits;
    
-
-    if (totalHits === getImages) {
-        btnLoadMore.style.visibility = `hidden`;
-        Notify.info("We're sorry, but you've reached the end of search results.", notifyInit);
-    }
-    else 
     btnLoadMore.style.visibility = `visible`;
+    
 try {
     if (images.length === 0) {
         form.reset();
@@ -60,6 +55,13 @@ try {
     }
     div.innerHTML = createMarkup(images);
     lightbox.refresh();
+
+    if (totalHits === getImages) {
+        btnLoadMore.style.visibility = `hidden`;
+        Notify.info("We're sorry, but you've reached the end of search results.", notifyInit);
+    }
+    
+    
 }
     catch { Report.failure('Sorry!Something went wrong', '', 'Okay',); }
 finally {
@@ -79,7 +81,7 @@ const allImages = pixabayApi.hasMorePhotos();
     
 
 
-    if ((totalHits - allImages) < per_Page) {
+    if ( (totalHits - allImages) < per_Page) {
     div.innerHTML += createMarkup(images);
     lightbox.refresh();
     Notify.info("We're sorry, but you've reached the end of search results.", notifyInit);
