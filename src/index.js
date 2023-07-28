@@ -36,25 +36,20 @@ btnLoadMore.style.visibility = `hidden`;
 
 async function onSearch(e) {
     e.preventDefault();
-    // console.log(`submit`);
     pixabayApi.searchQuery = e.currentTarget.elements.searchQuery.value;
     pixabayApi.resetPage();
     const img = await pixabayApi.fetchArticles();
     const images = img.hits;
-    // console.log(images);
     const getImages = images.length;
     const totalHits = img.totalHits;
-    // console.log(totalHits);
-    
-        // const totalImages = pixabayApi.hasMorePhotos();
-        // console.log(totalImages);
+   
+
     if (totalHits === getImages) {
         btnLoadMore.style.visibility = `hidden`;
-        // Notify.info("We're sorry, but you've reached the end of search results.", notifyInit);
+        Notify.info("We're sorry, but you've reached the end of search results.", notifyInit);
     }
     else 
     btnLoadMore.style.visibility = `visible`;
-    // console.log(images);
 try {
     if (images.length === 0) {
         form.reset();
@@ -63,7 +58,6 @@ try {
         Notify.info('Sorry, there are no images matching your search query. Please try again.', notifyInit);
         return;
     }
-    // console.log(images);
     div.innerHTML = createMarkup(images);
     lightbox.refresh();
 }
@@ -74,8 +68,6 @@ finally {
 };
 
 const per_Page = pixabayApi.per_page;
-// console.log(pixabayApi.per_page);
-
 
 async function onLoadMore() {
 btnLoadMore.style.visibility = `hidden`;
@@ -83,9 +75,9 @@ pixabayApi.incrementPage();
 const img = await pixabayApi.fetchArticles();
 const images = img.hits;
 const totalHits = img.totalHits;
-// console.log(totalHits);
-    const allImages = pixabayApi.hasMorePhotos();
-    // console.log(allImages);
+const allImages = pixabayApi.hasMorePhotos();
+    
+
 
     if ((totalHits - allImages) < per_Page) {
     div.innerHTML += createMarkup(images);
@@ -100,6 +92,7 @@ const totalHits = img.totalHits;
     lightbox.refresh();
     btnLoadMore.style.visibility = `visible`;
     }
+
     catch {
         Report.failure('Sorry!Something went wrong', '', 'Okay',);
     }
