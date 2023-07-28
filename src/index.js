@@ -50,7 +50,7 @@ async function onSearch(e) {
         // console.log(totalImages);
     if (totalHits === getImages) {
         btnLoadMore.style.visibility = `hidden`;
-        Notify.info("We're sorry, but you've reached the end of search results.", notifyInit);
+        // Notify.info("We're sorry, but you've reached the end of search results.", notifyInit);
     }
     else 
     btnLoadMore.style.visibility = `visible`;
